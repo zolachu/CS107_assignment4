@@ -57,7 +57,7 @@ void ls(const char *dirpath, int filter, int order) {
 
   struct dirent **names;
 
-  int (*compare)(const struct dirent**, const struct dirent**) = (order ? &sortTrue : &sortFalse);
+  int (*compare)(const struct dirent**, const struct dirent**) = (!order ? &sortTrue : &sortFalse);
   
   int (*filters)(const struct dirent*) = (filter ? &filterDir : NULL);
 
