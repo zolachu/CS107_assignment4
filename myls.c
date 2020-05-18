@@ -26,7 +26,7 @@ bool is_dir(const struct dirent *dirptr) {
 
 int sortByType(const struct dirent **d1,const struct dirent **d2) {
   if (is_dir(*d1) == is_dir(*d2)){
-    return strcmp((*d2)->d_name,(*d1)->d_name);
+    return strcasecmp((*d2)->d_name,(*d1)->d_name);
   }
   if (is_dir(*d1) && !is_dir(*d2)) {
     return 1;
@@ -43,7 +43,7 @@ int sortByType(const struct dirent **d1,const struct dirent **d2) {
  */
 
 int sortByName(const struct dirent **d1,const struct dirent **d2) {
-  return(strcmp((*d2)->d_name,(*d1)->d_name));
+  return(strcasecmp((*d2)->d_name,(*d1)->d_name));
 }
 
 
