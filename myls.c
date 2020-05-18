@@ -62,7 +62,7 @@ void ls(const char *dirpath, int filter, int order) {
 
   struct dirent **names;
 
-  int (*compare)(const struct dirent**, const struct dirent**) = (order == SORT_BY_NAME ? &sortByType : &sortByName);
+  int (*compare)(const struct dirent**, const struct dirent**) = (order == SORT_BY_TYPE ? &sortByType : &sortByName);
   
   int (*filters)(const struct dirent*) = (filter != EXCLUDE_DOT ? &excludeDot : NULL);
 
