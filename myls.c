@@ -47,7 +47,7 @@ int sortByName(const struct dirent **d1,const struct dirent **d2) {
  */
 
 int excludeDot(const struct dirent *d) {
-  return is_dir(d) ? 0 : 1;
+  return is_dir(d) ? 1 : 0;
 }
 
 void ls(const char *dirpath, int filter, int order) {
