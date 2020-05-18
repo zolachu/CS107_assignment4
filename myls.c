@@ -21,7 +21,8 @@ bool is_dir(const struct dirent *dirptr) {
 /*
  * Function: sortByType()
  * ---------------
- * Compares directory entries lexicographically and sorts by directory type.
+ * sorts by type (directories ahead of non-directories). 
+ * Entries of the same type are sorted by name.
  */
 
 int sortByType(const struct dirent **d1,const struct dirent **d2) {
@@ -48,12 +49,13 @@ int sortByName(const struct dirent **d1,const struct dirent **d2) {
 
 
 /*
- * Function: selDir()
+ * Function: includeDot()
  * ------------------
- * returns true if the directory itself is a directory.
+ * dir name includes "."
+ * Returns 1 if Dirent is a directory, 0 otherwise.
  */
 
-int excludeDot(const struct dirent *d) {
+int includeDot(const struct dirent *d) {
   return (is_dir(d)) ? 1 : 0;
 }
 
@@ -61,10 +63,10 @@ void ls(const char *dirpath, int filter, int order) {
     // TODO: implement this function
 
   struct dirent **names;
-
+  
   int (*compare)(const struct dirent**, const struct dirent**) = (order == SORT_BY_TYPE ? &sortByType : &sortByName);
   
-  int (*filters)(const struct dirent*) = (filter == EXCLUDE_DOT ? NULL : &excludeDot);
+  int (*filters)(const struct dirent*) = (filter == EXCLUDE_DOT ? NULL : &includeDot);
 
   int count = scandir(dirpath, &names, filters, compare);
 
@@ -73,7 +75,7 @@ void ls(const char *dirpath, int filter, int order) {
     if(filter == 0  && *name == '.') continue;
     printf("%s", names[count]->d_name);
     printf(is_dir(names[count]) ? "/\n" : "\n");
-
+    if (dirpath == NULL) printf("FUck");
     //    free(names[count]);
   }
   //  free(names);
