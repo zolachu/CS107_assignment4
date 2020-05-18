@@ -1,3 +1,4 @@
+
 #include <dirent.h>
 #include <getopt.h>
 #include <stdbool.h>
@@ -62,8 +63,7 @@ void ls(const char *dirpath, int filter, int order) {
 
   int count = scandir(dirpath, &names, filters, compare);
 
-  while(count >0) {
-    count--;
+  while(count-- >0) {
     char* name = names[count]->d_name;
     if(filter == 0  && *name == '.') continue;
     printf("%s", names[count]->d_name);
