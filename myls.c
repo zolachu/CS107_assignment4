@@ -70,7 +70,7 @@ void ls(const char *dirpath, int filter, int order) {
 
   int count = scandir(dirpath, &names, filters, compare);
   if (count == -1) {
-    fprintf(stderr, "./myls: cannot access /bogus %s", dirpath);
+    fprintf(stderr, "./myls: cannot access %s", dirpath);
     exit(0);
   }
   while(count-- >0) {
