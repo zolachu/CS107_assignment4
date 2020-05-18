@@ -36,8 +36,7 @@ void test_int(int count, char *args[]) {
     for (int i = 0; i < count; i++) {
         int val = atoi(args[i]);
         int *added = binsert(&val, arr, &nused, sizeof(arr[0]), cmp_int);
-	//        assert(val == *added);
-	printf("PLEASE DELETE ASSERT");
+        assert(val == *added);
     }
 
     for (int i = 0; i < nused; i++) {
