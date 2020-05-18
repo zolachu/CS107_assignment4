@@ -64,7 +64,7 @@ void ls(const char *dirpath, int filter, int order) {
 
   int (*compare)(const struct dirent**, const struct dirent**) = (order == SORT_BY_TYPE ? &sortByType : &sortByName);
   
-  int (*filters)(const struct dirent*) = (filter != EXCLUDE_DOT ? &excludeDot : NULL);
+  int (*filters)(const struct dirent*) = (filter == EXCLUDE_DOT ? &excludeDot : NULL);
 
   int count = scandir(dirpath, &names, filters, compare);
 
