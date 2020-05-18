@@ -58,15 +58,15 @@ void ls(const char *dirpath, int filter, int order) {
   struct dirent **names;
 
   int (*compare)(const struct dirent**, const struct dirent**) = (order ? &sortTrue : &sortFalse); 
-  int (*filters)(const struct dirent*) = (!filter ? &selDir : NULL);
-
+  // int (*filters)(const struct dirent*) = (!filter ? &selDir : NULL);
+  int (*filters)(const struct dirent*) = NULL;
   int count = scandir(dirpath, &names, filters, compare);
 
 
   while(count-- >0) {
-
+    
     char* name = names[count]->d_name;
-    //    if(filter == 0  && *name == '.') continue;
+    if(filter == 0  && *name == '.') continue;
     printf("name of the directory %s", names[count]->d_name);
     printf(is_dir(names[count]) ? "/\n" : "\n");
 
