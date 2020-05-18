@@ -64,14 +64,13 @@ void ls(const char *dirpath, int filter, int order) {
   int count = scandir(dirpath, &names, filters, compare);
 
   while(count >0) {
-    
+    count--;
     char* name = names[count]->d_name;
     if(filter == 0  && *name == '.') continue;
     printf("%s", names[count]->d_name);
     printf(is_dir(names[count]) ? "/\n" : "\n");
 
     free(names[count]);
-    count--;
   }
   free(names);
 }
