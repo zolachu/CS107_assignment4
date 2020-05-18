@@ -16,19 +16,30 @@ bool is_dir(const struct dirent *dirptr) {
     return dirptr->d_type == DT_DIR;
 }
 
+/*
+ * Function: sortTrue()
+ * ---------------
+ * Compares directory entries lexicographically.
+ * Sorts by directory and non-directory,  
+ * directories always have higher priority than nondirectories.
+ */
+
 int sortTrue(const struct dirent **d1,const struct dirent **d2) {
-  if(is_dir(*d1) == is_dir(*d2)) {
-    return(strcasecmp((*d2)->d_name,(*d1)->d_name));
-  }
-  return 1;
+  return is_dir(*d1) == is_dir(*d2) ? strcasecmp((*d2)->d_name,(*d1)->d_name) : 1;
 }
 
+
+/*
+ * Function: sortFalse()
+ *---------------------
+ * Compares directory entries lexicographically regardless of 
+ * directory or non-directory.
+ */
 
 int sortFalse(const struct dirent **d1,const struct dirent **d2) {
 
   return(strcasecmp((*d2)->d_name,(*d1)->d_name));
 }
-
 
 
 /*
@@ -45,10 +56,10 @@ void ls(const char *dirpath, int filter, int order) {
     // TODO: implement this function
 
   struct dirent **names;
-
-  int (*comp)(const struct dirent**, const struct dirent**) = (!order ? &sortTrue : &sortFalse);
-
-  int (*sel)(const struct dirent*) = (!filter ? NULL : &selDir);
+  
+  int (*comp)(const struct dirent**, const struct dirent**) = (order ? &sortTrue : &sortFalse);
+ 
+  int (*sel)(const struct dirent*) = (!filter ? &selDir : NULL);
 
   int count = scandir(dirpath, &names, sel, comp);
 
