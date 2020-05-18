@@ -38,7 +38,6 @@ int sortTrue(const struct dirent **d1,const struct dirent **d2) {
  */
 
 int sortFalse(const struct dirent **d1,const struct dirent **d2) {
-
   return(strcmp((*d2)->d_name,(*d1)->d_name));
 }
 
@@ -58,7 +57,7 @@ void ls(const char *dirpath, int filter, int order) {
 
   struct dirent **names;
 
-  int (*compare)(const struct dirent**, const struct dirent**) = (!order ? &sortTrue : &sortFalse); 
+  int (*compare)(const struct dirent**, const struct dirent**) = (order ? &sortTrue : &sortFalse); 
   int (*filters)(const struct dirent*) = (filter ? &selDir : NULL);
 
   int count = scandir(dirpath, &names, filters, compare);
