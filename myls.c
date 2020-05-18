@@ -70,7 +70,7 @@ void ls(const char *dirpath, int filter, int order) {
 
   int count = scandir(dirpath, &names, filters, compare);
   if (count == -1) {
-    perror("fuck");
+    fprintf(stderr, "%s", "Stack overflow!\n"); 
   }
   while(count-- >0) {
     char* name = names[count]->d_name;
