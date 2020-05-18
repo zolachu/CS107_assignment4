@@ -29,6 +29,7 @@ void *binsert(const void *key, void *base, size_t *p_nelem, size_t width,
       base1 = (char *)p + width;
       nremain--;
     } else {
+      base1 = (char *)p - width;
     }/* else move left */
   }
 
@@ -36,8 +37,7 @@ void *binsert(const void *key, void *base, size_t *p_nelem, size_t width,
 
   size_t index = ((char*)base1 - (char*)base)/width;
 
-  memmove((char*)base + (index + 1)* width,
-	  (char*)base + index* width, (*p_nelem - index + 1)* width);
+  memmove((char*)base + (index + 1)* width, (char*)base + index* width, (*p_nelem - index + 1)* width);
 
   return  memcpy((char *)base + index * width, key, width);
 }
