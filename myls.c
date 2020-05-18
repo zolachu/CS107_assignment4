@@ -69,11 +69,10 @@ void ls(const char *dirpath, int filter, int order) {
   int (*filters)(const struct dirent*) = (filter == EXCLUDE_DOT ? NULL : &includeDot);
 
   int count = scandir(dirpath, &names, filters, compare);
-  if (count == 0) {
+  if (count == -1) {
     printf("%s", names[count]->d_name);
     printf(is_dir(names[count]) ? "/\n" : "\n");
 
-    fprintf(stderr, "Value of errno: %d\n", 0);
   }
   while(count-- >0) {
     char* name = names[count]->d_name;
