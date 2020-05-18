@@ -24,7 +24,7 @@ bool is_dir(const struct dirent *dirptr) {
  */
 
 int sortByType(const struct dirent **d1,const struct dirent **d2) {
-  return is_dir(*d1) == is_dir(*d2) ? strcmp((*d2)->d_name,(*d1)->d_name) : 1;
+  return is_dir(*d1) == is_dir(*d2) ? strcasecmp((*d2)->d_name,(*d1)->d_name) : 1;
 }
 
 
@@ -36,7 +36,7 @@ int sortByType(const struct dirent **d1,const struct dirent **d2) {
  */
 
 int sortByName(const struct dirent **d1,const struct dirent **d2) {
-  return(strcmp((*d2)->d_name,(*d1)->d_name));
+  return(strcasecmp((*d2)->d_name,(*d1)->d_name));
 }
 
 
@@ -56,7 +56,7 @@ void ls(const char *dirpath, int filter, int order) {
   struct dirent **names;
 
   
-  int (*compare)(const struct dirent**, const struct dirent**) = (order != SORT_BY_NAME ? &sortByName : &sortByType);
+  int (*compare)(const struct dirent**, const struct dirent**) = (order == SORT_BY_NAME ? &sortByName : &sortByType);
   
   int (*filters)(const struct dirent*) = (filter == EXCLUDE_DOT ? &excludeDot : NULL);
 
