@@ -48,7 +48,7 @@ int sortFalse(const struct dirent **d1,const struct dirent **d2) {
  * returns true if the directory itself is a directory.
  */
 
-int selDir(const struct dirent *d) {
+int filterDir(const struct dirent *d) {
   return is_dir(d) ? 0 : 1;
 }
 
@@ -57,8 +57,9 @@ void ls(const char *dirpath, int filter, int order) {
 
   struct dirent **names;
 
-  int (*compare)(const struct dirent**, const struct dirent**) = (order ? &sortTrue : &sortFalse); 
-  int (*filters)(const struct dirent*) = (filter ? &selDir : NULL);
+  int (*compare)(const struct dirent**, const struct dirent**) = (order ? &sortTrue : &sortFalse);
+  
+  int (*filters)(const struct dirent*) = (filter ? &filterDir : NULL);
 
   int count = scandir(dirpath, &names, filters, compare);
 
