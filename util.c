@@ -3,6 +3,17 @@
 #include <stdio.h>
 #include <string.h>
 
+/*
+ * Function: binsert
+ *-----------------
+ * perform a binary search to search for the key and
+ * if no matching element is found, it will insert 
+ * the key into the proper position in the sorted array. 
+ * 
+ * return: a pointer to the key in the array
+ */
+
+
 void *binsert(const void *key, void *base, size_t *p_nelem, size_t width,
               int (*compar)(const void *, const void *)) {
     // TODO: implement this function (and remove the line below)
@@ -13,11 +24,13 @@ void *binsert(const void *key, void *base, size_t *p_nelem, size_t width,
     void *p = base1 + (nremain >> 1)* width;
     int sign = compar(key, p);
 
-    if (sign == 0) return p; // if matching element is found
-    if (sign > 0) {
+    if (sign  == 0) return p; /* if the key is found */
+    if (sign > 0) {  /* key > p: move right */
       base1 = (char *)p + width;
       nremain--;
-    }
+    } else {
+      printf("HI");
+    }/* else move left */
   }
 
   ++(*p_nelem);
