@@ -29,7 +29,6 @@ void *binsert(const void *key, void *base, size_t *p_nelem, size_t width,
       base1 = (char *)p + width;
       nremain--;
     } else {
-      printf("HI");
     }/* else move left */
   }
 
