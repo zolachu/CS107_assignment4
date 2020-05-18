@@ -47,7 +47,7 @@ int sortByName(const struct dirent **d1,const struct dirent **d2) {
  */
 
 int excludeDot(const struct dirent *d) {
-  return is_dir(d) ? 1 : 0;
+  return is_dir(d) ? 0:1;
 }
 
 void ls(const char *dirpath, int filter, int order) {
@@ -58,7 +58,7 @@ void ls(const char *dirpath, int filter, int order) {
   
   int (*compare)(const struct dirent**, const struct dirent**) = (order == SORT_BY_NAME ? &sortByName : &sortByType);
   
-  int (*filters)(const struct dirent*) = (filter == EXCLUDE_DOT ? &excludeDot : NULL);
+  int (*filters)(const struct dirent*) = (filter != EXCLUDE_DOT ? &excludeDot : NULL);
 
   int count = scandir(dirpath, &names, filters, compare);
 
