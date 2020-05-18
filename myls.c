@@ -69,9 +69,9 @@ void ls(const char *dirpath, int filter, int order) {
     printf("%s", names[count]->d_name);
     printf(is_dir(names[count]) ? "/\n" : "\n");
 
-    free(names[count]);
+    //    free(names[count]);
   }
-  free(names);
+  //  free(names);
 }
 
 
