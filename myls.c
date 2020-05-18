@@ -2,7 +2,8 @@
 #include <getopt.h>
 #include <stdbool.h>
 #include <stdio.h>
-
+#include <strings.h>
+#include <stdlib.h>
 
 enum { SORT_BY_NAME, SORT_BY_TYPE };
 enum { EXCLUDE_DOT, INCLUDE_DOT };
@@ -15,8 +16,53 @@ bool is_dir(const struct dirent *dirptr) {
     return dirptr->d_type == DT_DIR;
 }
 
+int sortTrue(const struct dirent **d1,const struct dirent **d2) {
+  if(is_dir(*d1) == is_dir(*d2)) {
+    return(strcasecmp((*d2)->d_name,(*d1)->d_name));
+  }
+  return 1;
+}
+
+
+int sortFalse(const struct dirent **d1,const struct dirent **d2) {
+
+  return(strcasecmp((*d2)->d_name,(*d1)->d_name));
+}
+
+
+
+/*
+ * Function: selDir()
+ * ------------------
+ * returns true if the directory itself is a directory.
+ */
+
+int selDir(const struct dirent *d) {
+  return is_dir(d) ? 0 : 1;
+}
+
 void ls(const char *dirpath, int filter, int order) {
     // TODO: implement this function
+
+  struct dirent **names;
+
+  int (*comp)(const struct dirent**, const struct dirent**) = (order ? &sortTrue : &sortFalse);
+
+  int (*sel)(const struct dirent*) = (filter? NULL : &selDir);
+
+  int count = scandir(dirpath, &names, sel, comp);
+
+
+  while(count-- >0) {
+
+    char* name = names[count]->d_name;
+    if(filter == 0  && *name == '.') continue;
+    printf("%s", names[count]->d_name);
+    printf(is_dir(names[count]) ? "/\n" : "\n");
+
+    free(names[count]);
+  }
+  free(names);
 }
 
 
