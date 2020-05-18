@@ -43,7 +43,7 @@ int sortByType(const struct dirent **d1,const struct dirent **d2) {
  */
 
 int sortByName(const struct dirent **d1,const struct dirent **d2) {
-  return(strcasecmp((*d2)->d_name,(*d1)->d_name));
+  return(strcmp((*d2)->d_name,(*d1)->d_name));
 }
 
 
