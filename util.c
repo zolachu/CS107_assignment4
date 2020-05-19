@@ -28,8 +28,6 @@ void *binsert(const void *key, void *base, size_t *p_nelem, size_t width,
     if (sign > 0) {  /* key > p: move right */
       base1 = (char *)p + width;
       nremain--;
-    } else {
-      base1 = (char *)p - width;
     }/* else move left */
   }
 
