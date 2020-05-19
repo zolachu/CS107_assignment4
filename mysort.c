@@ -162,15 +162,15 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
     while (n_line--) {
       if (newLines[n_line] != NULL)
       	printf("%s",newLines[n_line]);
-      free(newLines[n_line]);
+      //      free(newLines[n_line]);
     }
     //    return;
   } else {
     for (int i = 0; i < n_line; i++) {
       if (newLines[i] != NULL)
 	printf("%s", newLines[i]);
-      free(newLines[i]);
-      free(lines[i]);
+      //free(newLines[i]);
+      //free(lines[i]);
     }
   }
 
