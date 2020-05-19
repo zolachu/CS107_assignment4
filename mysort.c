@@ -164,8 +164,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
       	printf("%s",newLines[n_line]);
         free(newLines[n_line]);
     }
-    //    return;
-  } else {
+  } else {                                      // Prints all the lines in the original order.
     for (int i = 0; i < n_line; i++) {
       if (newLines[i] != NULL)
 	printf("%s", newLines[i]);
