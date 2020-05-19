@@ -113,9 +113,9 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   //  if (!uniq) qsort(lines, n_line, sizeof(char *), cmp);
 
   char **newLines = malloc(n_line * sizeof(char *));
-
+  int count = 0;
   if (uniq && cmp == cmp_pstr_len) {
-    int count = 0;
+    count = 0;
     int len = strlen(lines[0]);
     char* str = lines[0];
     count = 0;
@@ -132,7 +132,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
     }
   } else if (uniq && cmp == cmp_pstr_numeric){
     int len = atoi(lines[0]);
-    int count = 0;
+    count = 0;
     char* str = lines[0];
     for (int i = 0; i < n_line; i++) {
       if (i == n_line - 1)
