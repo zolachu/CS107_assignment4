@@ -15,6 +15,7 @@
 typedef int (*cmp_fn_t)(const void *p, const void *q);
 
 /*
+ * Compares strings lexicographically 
  */
 int cmp_pstr(const void *p, const void *q) {
   // TODO: implement this function (and remove the line below)
@@ -23,10 +24,8 @@ int cmp_pstr(const void *p, const void *q) {
   return strcmp(*ip, *iq);
 }
 
-
-/*                                                                                                                                                                                      
- *                                                                                                                                                                                     
- *                                                                                                                                                                                     
+/*
+ * Compares strings by length (not lexicographically)
  */
 
 int cmp_pstr_len(const void *p, const void *q) {
@@ -39,7 +38,7 @@ int cmp_pstr_len(const void *p, const void *q) {
 }
 
 /*
- *
+ * Compares strings numerically. Example "3"<"5".
  */
 
 int cmp_pstr_numeric(const void *p, const void *q) {
@@ -51,10 +50,10 @@ int cmp_pstr_numeric(const void *p, const void *q) {
   return num1 > num2 ? 1 : -1;
 }
 
-
-/*                                                                                                                                                                                      
- *                                                                                                                                                                                      
- *                                                                                                                                                                                    
+/*
+ * Reads line by line from fp file descriptor and returns a pointer to array of
+ * unique strings read from the file.
+ * Uses cmp comparison function and binsert in order to sort the array.
  */
 
 char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
@@ -77,10 +76,9 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
   return lines;
 }
 
-
-/*
- *
- *
+/*                                                                                                                                                                                      
+ * Reads line by line from fp file descriptor and returns a pointer to array of                                                                                                         
+ * strings read from the file.The order of the strings is as it is read from the file.                                                                                                 
  */
 
 char **getLines(FILE *fp, size_t *n_line) {
@@ -104,6 +102,14 @@ char **getLines(FILE *fp, size_t *n_line) {
 }
 
 
+/*
+ * Sorts all the lines read from file descriptor fp.
+ * If uniq is true, it prints out lines with no duplicates.
+ * If uniq is true AND the comparison function is "compare by length"
+ * then the strings with equal length are considered duplicates.
+ * If uniq is true AND the comparison function is "compare by numeric"
+ * then the strings with equal numerical values are considered duplicates.
+ */
 void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   // TODO: implement this function
   size_t n_line = 0;
@@ -159,12 +165,12 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   for (int i = 0; i < n_line; i++) {
     if (newLines[i] != NULL)
       printf("%s", newLines[i]);
-    //free(newLines[i]);
-    //free(lines[i]);
+      free(newLines[i]);
+      free(lines[i]);
   }
 
-  //  free(lines);
-  //free(newLines);
+  free(lines);
+  free(newLines);
 }
 
 int main(int argc, char *argv[]) {
