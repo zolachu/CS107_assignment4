@@ -53,10 +53,9 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
   char line[MAX_LINE_LEN];
  
   while (fgets(line, MAX_LINE_LEN, fp) != NULL) {
-  //  for (int i = 0; i < 2; i++){
   fgets(line, MAX_LINE_LEN, fp) ;
-  printf("%lu", *n_line);
-  printf("%d", size);
+
+
   if (*n_line >= size) {   /* if there isn't enough memory, double the size of the allocation.*/
 
     size *= 2;
@@ -87,16 +86,16 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   if (reverse) {
     while (n_line--) {
       printf("%s", lines[n_line]);
-      //free(lines[n_line]);
+      free(lines[n_line]);
     }
   } else {
     for (int i = 0; i < n_line; i++) {
        printf("%s", lines[i]);
-       //       free(lines[i]);
+       free(lines[i]);
     }
 
   }
-  //  free(lines); 
+  free(lines); 
 }
 
 int main(int argc, char *argv[]) {
