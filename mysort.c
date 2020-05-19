@@ -165,12 +165,12 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   for (int i = 0; i < n_line; i++) {
     if (newLines[i] != NULL)
       printf("%s", newLines[i]);
-    free(newLines[i]);
-    free(lines[i]);
+    //free(newLines[i]);
+    //free(lines[i]);
   }
 
-  free(lines);
-  free(newLines);
+  //  free(lines);
+  //free(newLines);
 }
 
 int main(int argc, char *argv[]) {
