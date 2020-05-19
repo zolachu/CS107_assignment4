@@ -7,4 +7,4 @@
 
 myls -a /afs/ir/class/cs107/samples
 myls -z /afs/ir/class/cs107/samples
-mysort -l -u samples/names
+mysort -l samples/names
