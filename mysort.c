@@ -64,7 +64,7 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
       char *key = line;
       char **new = (char *)binsert(&key, lines, n_line, sizeof(char *), cmp);
       if(*new == NULL) printf("fuck");
-           if (key == *new) *new = strdup(key);
+      //           if (key == *new) *new = strdup(key);
       }
   }
   return lines;
