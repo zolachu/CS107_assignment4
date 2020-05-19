@@ -92,10 +92,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   qsort(lines, n_line, sizeof(char *), cmp);
 
   char **newLines = malloc(n_line * sizeof(char *));
-  if (reverse) {
-    for (int i = 0; i < n_line; i++)
-      newLines[i] = lines[n_line - i];
-  }
+  
   int len = strlen(lines[0]);
   char *str = lines[0];
   int count = 0;
@@ -108,13 +105,16 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
 	len = strlen(lines[i]);
 	newLines[count] = str;
 	count++;
-	//	printf("%s", str);
       }
     }
     //    return;
   } else {
     for(int i = 0; i < n_line; i++)
       newLines[i] = lines[i];
+  }
+  if (reverse) {
+    for (int i = 0; i < n_line; i++)
+      newLines[i] = lines[n_line - i];
   }
   for (int i = 0; i < n_line; i++) {
     printf("%s", newLines[i]);
