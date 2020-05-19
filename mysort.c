@@ -72,7 +72,7 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
 
     char *key = line;
     char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
-    *new = strdup(key);
+    if (key == *new) *new = strdup(key);
   }
   return lines;
 }
@@ -103,58 +103,6 @@ char **getLines(FILE *fp, size_t *n_line) {
   return lines;
 }
 
-/*
- */
-
-void sortHelper(char** lines, size_t * n_line, bool uniq, cmp_fn_t cmp, bool reverse) {
-  char **newLines = malloc(*n_line * sizeof(char *));
-  if (uniq && cmp == cmp_pstr_len) {
-    int count = 0;
-    int len = strlen(lines[0]);
-    char* str = lines[0];
-    count = 0;
-    for (int i = 0; i < *n_line; i++) {
-      if (i == *n_line - 1)
-	newLines[count] = lines[i];
-      if (strlen(lines[i]) == len) {
-	str = lines[i];
-      } else {
-	len = strlen(lines[i]);
-	newLines[count] = str;
-	count++;
-      }
-    }
-  } else if (uniq && cmp == cmp_pstr_numeric){
-    int len = atoi(lines[0]);
-    int count = 0;
-    char* str = lines[0];
-    for (int i = 0; i < *n_line; i++) {
-      if (i == *n_line - 1)
-	newLines[count] = lines[i];
-      if (atoi(lines[i]) == len) {
-	str = lines[i];
-      } else {
-	len = atoi(lines[i]);
-	newLines[count] = str;
-	count++;
-      }
-    }
-  } else {
-    for(int i = 0; i < *n_line; i++) newLines[i] = lines[i];
-  }
-  if (reverse) {
-    while (*n_line--) {
-      if (newLines[*n_line] != NULL)
-	printf("%s",newLines[*n_line]);
-    }
-    return;
-  }
-  for (int i = 0; i < *n_line; i++) {
-    if (newLines[i] != NULL)
-      printf("%s", newLines[i]);
-    free(newLines[i]);
-  }
-}
 
 void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   // TODO: implement this function
