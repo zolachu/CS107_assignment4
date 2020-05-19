@@ -67,8 +67,7 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
       (*n_line)++;
     } else {
       char *key = line;
-      printf("%s", key);
-      //      assert(lines);
+      //      printf("%s", key);
       char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
       *new = strdup(key);
       }
@@ -85,11 +84,12 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   qsort(lines, n_line, sizeof(char *), cmp_pstr);
   //  qsort(lines, n_line, sizeof(char *), cmp);
   if (reverse) {
+    /* printt the lines in the reverse order */
     while (n_line--) {
       printf("%s", lines[n_line]);
       free(lines[n_line]);
     }
-  } else {
+  } else { /* print the lines as it is */
     for (int i = 0; i < n_line; i++) {
        printf("%s", lines[i]);
        free(lines[i]);
