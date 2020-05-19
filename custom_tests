@@ -6,3 +6,5 @@
 # Below are example custom tests, you can edit this file to change or add new tests.
 
 myls -a /afs/ir/class/cs107/samples
+myls -z /afs/ir/class/cs107/samples
+mysort -l -u /afs/ir/class/cs107/samples
