@@ -118,6 +118,8 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   
   if (!uniq) qsort(lines, n_line, sizeof(char *), cmp);
 
+  //  char newLines[n_line][MAX_LINE_LEN];
+  
   char **newLines = malloc(n_line * sizeof(char *));  // This pointer is a pointer to an array where there is no duplicates, if any.
   // lines array might have duplicates. we will remove all the duplicates if uniq is set to true.
   int count = 0;
@@ -152,22 +154,24 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
 	count++;
       }
     }
-  } else {
+  } else {                                      // In all other cases, copy newLines is a copy of lines array.
     for(int i = 0; i < n_line; i++) newLines[i] = lines[i];
   }
   
-  if (reverse) {
+  if (reverse) {                                // If reverse is true, reverse the order of the strings .
     while (n_line--) {
       if (newLines[n_line] != NULL)
       	printf("%s",newLines[n_line]);
+      free(newLines[n_line]);
     }
-    return;
-  }
-  for (int i = 0; i < n_line; i++) {
-    if (newLines[i] != NULL)
-      printf("%s", newLines[i]);
+    //    return;
+  } else {
+    for (int i = 0; i < n_line; i++) {
+      if (newLines[i] != NULL)
+	printf("%s", newLines[i]);
       free(newLines[i]);
       free(lines[i]);
+    }
   }
 
   free(lines);
