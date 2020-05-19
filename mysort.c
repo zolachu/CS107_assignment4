@@ -71,7 +71,7 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
       //      assert(lines);
       if (!test) {
 	  perror("realloc");
-	  return lines;
+	  return NULL;
       }
       lines = test;
     }
