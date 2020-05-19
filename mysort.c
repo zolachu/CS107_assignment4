@@ -70,8 +70,11 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
       sizes *= 2;
       printf("%lu hi \n", sizes);
       lines = realloc(lines, sizes * sizeof(char *));     
-     
-    }
+      for (int index= sizes/2; index< sizes; index++)
+	{
+	  *(lines + index) = (char*)malloc(sizeof(char) * MAX_LINE_LEN);
+	}
+    } 
 
     char *key = line;
     char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
