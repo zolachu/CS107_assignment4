@@ -11,3 +11,7 @@ mysort -l samples/names
 mysort -r samples/names
 mysort -u samples/names
 mysort -u -l samples/names
+mysort -u -l -r samples/names
+mysort -u -n samples/names
+mysort -u -l -n samples/names
+mysort -l -u samples/names
