@@ -90,7 +90,7 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
 void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   // TODO: implement this function
   size_t n_line = 0;
-  char **lines = getLines(fp, &n_line, cmp, uniq);
+  char **lines = getLines(fp, &n_line, cmp_pstr, uniq);
   assert(lines);
   qsort(lines, n_line, sizeof(char *), cmp_pstr);
   //  qsort(lines, n_line, sizeof(char *), cmp);
