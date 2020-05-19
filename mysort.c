@@ -114,18 +114,19 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   // TODO: implement this function
   size_t n_line = 0;
   char **lines = uniq ? getUniqueLines(fp, &n_line, cmp) : getLines(fp, &n_line); // This makes repeated calls to binsert ONLY if uniq == TRUE.
-  //  assert(lines);
+  assert(lines);
   
   if (!uniq) qsort(lines, n_line, sizeof(char *), cmp);
 
-  char **newLines = malloc(n_line * sizeof(char *));
+  char **newLines = malloc(n_line * sizeof(char *));  // This pointer is a pointer to an array where there is no duplicates, if any.
+  // lines array might have duplicates. we will remove all the duplicates if uniq is set to true.
   int count = 0;
-  if (uniq && cmp == cmp_pstr_len) {
+  if (uniq && cmp == cmp_pstr_len) {            // If uniq is true and strings are compared by length 
     count = 0;
     int len = strlen(lines[0]);
     char* str = lines[0];
     count = 0;
-    for (int i = 0; i < n_line; i++) {
+    for (int i = 0; i < n_line; i++) {          // by comparing the string lengths, populate newLines with the very last strings of the same lengths.
       if (i == n_line - 1)
 	newLines[count] = lines[i];
       if (strlen(lines[i]) == len) {
@@ -136,13 +137,13 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
 	count++;
       }
     }
-  } else if (uniq && cmp == cmp_pstr_numeric){
-    int len = atoi(lines[0]);
+  } else if (uniq && cmp == cmp_pstr_numeric){  // If uniq is true and strings are compared by its numerical value
+    int len = atoi(lines[0]);                   // convert string lines[0] to its numerical value.
     count = 0;
-    char* str = lines[0];
-    for (int i = 0; i < n_line; i++) {
-      if (i == n_line - 1)
-	newLines[count] = lines[i];
+    char* str = lines[0];      
+    for (int i = 0; i < n_line; i++) {          // by comparing the string lengths, populate newLines with the very last strings of the same lengths. 
+      if (i == n_line - 1)                      // If the i is the very last index
+	newLines[count] = lines[i];             // the very last element of newLines is set to the last string of lines array.
       if (atoi(lines[i]) == len) {
 	str = lines[i];
       } else {
