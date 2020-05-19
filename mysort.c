@@ -177,6 +177,15 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   free(newLines);
 }
 
+
+/*
+ * mysort (can be invoked with -u -l -n -r flags)
+ * sorts strings lexicographically. 
+ * -u -- remove duplicates
+ * -l -- sort by length
+ * -n -- sort by numerical values
+ * -r -- sort in the reverse order.
+ */
 int main(int argc, char *argv[]) {
     cmp_fn_t cmp = cmp_pstr;
     bool uniq = false;
