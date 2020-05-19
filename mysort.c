@@ -66,6 +66,7 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
 
     if (*n_line == size) {   /* if there isn't enough memory, double the size of the allocation.*/
       size *= 2;
+      printf("%d", size);
       lines = realloc(lines, size * sizeof(char *));
       assert(lines);
     }
