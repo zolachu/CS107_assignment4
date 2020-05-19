@@ -109,6 +109,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
     int len = strlen(lines[0]);
     char *str = lines[0];
     for (int i = 0; i < n_line; i++) {
+      if (i == n_line - 1) printf("%s", str);
       if (strlen(lines[i]) == len) {
 	str = lines[i];
       } else {
