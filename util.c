@@ -13,7 +13,6 @@
  * return: a pointer to the key in the array
  */
 
-
 void *binsert(const void *key, void *base, size_t *p_nelem, size_t width,
               int (*compar)(const void *, const void *)) {
     // TODO: implement this function (and remove the line below)
@@ -32,12 +31,12 @@ void *binsert(const void *key, void *base, size_t *p_nelem, size_t width,
   }
 
     ++(*p_nelem);
-    //    printf("%lu", *p_nelem);
-
+   
   size_t index = ((char*)base1 - (char*)base)/width;
 
+  // Add key to the array. 
   memmove((char*)base + (index + 1)*width, (char*)base + index*width, (*p_nelem - index + 1)* width);
   void* value = memcpy((char *)base + index * width, key, width);
-  //  assert(value != NULL);
+  assert(value);
   return value;
 }
