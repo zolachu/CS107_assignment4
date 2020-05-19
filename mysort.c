@@ -215,8 +215,6 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   }
 
   free(lines);
-    //  sortHelper(lines, &n_line, uniq, cmp, reverse);
-    //free(lines);
 }
 
 int main(int argc, char *argv[]) {
