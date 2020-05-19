@@ -65,7 +65,7 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
   while (fgets(line, MAX_LINE_LEN, fp) != NULL) {
 
     if (*n_line == size) {   /* if there isn't enough memory, double the size of the allocation.*/
-      size *= 2;
+      //size *= 2;
       // lines = realloc(lines, size * sizeof(char *));
       //      assert(lines);
     }
@@ -92,7 +92,7 @@ char **getLines(FILE *fp, size_t *n_line) {
   while (fgets(line, MAX_LINE_LEN, fp) != NULL) {
     
     if (*n_line == size) {   /* if there isn't enough memory, double the size of the allocation.*/
-      size *= 2;
+      //      size *= 2;
       //  lines = realloc(lines, size * sizeof(char *));
       //assert(lines);
     }
