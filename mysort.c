@@ -29,7 +29,8 @@ int cmp_pstr_len(const void *p, const void *q) {
   int len_p = strlen(pstr);
   int len_q = strlen(qstr);
 
-  return (len_p == len_q) ? cmp_pstr(pstr, qstr) : ((len_p > len_q) - (len_p < len_q));
+  if (len_p == len_q) return cmp_pstr(pstr, qstr);
+  return (len_p > len_q) - (len_p < len_q);
 }
 
 int cmp_pstr_numeric(const void *p, const void *q) {
@@ -58,10 +59,11 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
     size *= 2;
     printf("%d", size);
     lines = realloc(lines, size * sizeof(char *));
-    assert(lines != NULL);
+    //    assert(lines != NULL);
     }
     
     if (!uniq) {
+      printf("%d", size);
       lines[*n_line] = strdup(line);
       (*n_line)++;
     } else {
