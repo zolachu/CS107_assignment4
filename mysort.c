@@ -90,36 +90,35 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   char **lines = getLines(fp, &n_line, cmp, uniq);
   assert(lines);
   qsort(lines, n_line, sizeof(char *), cmp);
- 
-  if (reverse) {
-    /* printt the lines in the reverse order */
-    while (n_line--) {
-      printf("%s", lines[n_line]);
-      free(lines[n_line]);
-    }
-    return;
-  }
 
+  char **newLines = malloc(n_line * sizeof(char *));
+  if (reverse) {
+    for (int i = 0; i < n_line; i++)
+      newLines[i] = lines[n_line - i];
+  }
+  int len = strlen(lines[0]);
+  char *str = lines[0];
+  int count = 0;
   if (uniq && cmp == cmp_pstr_len) {
-    //    char **uniqLines = malloc(sizeof( * sizeof(char *));
-    int len = strlen(lines[0]);
-    char *str = lines[0];
     for (int i = 0; i < n_line; i++) {
       if (i == n_line - 1) printf("%s", lines[i]);
       if (strlen(lines[i]) == len) {
 	str = lines[i];
       } else {
 	len = strlen(lines[i]);
-	printf("%s", str);
+	newLines[count] = str;
+	count++;
+	//	printf("%s", str);
       }
     }
     return;
+  } else {
+    for(int i = 0; i < n_line; i++)
+      newLines[i] = lines[i];
   }
-  
-  /* print the lines as it is */
   for (int i = 0; i < n_line; i++) {
-     printf("%s", lines[i]);
-     free(lines[i]);
+    printf("%s", newLines[i]);
+    free(newLines[i]);
   }
 
   
