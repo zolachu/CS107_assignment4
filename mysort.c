@@ -67,8 +67,13 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
     while ((int)*n_line >= size) {   /* if there isn't enough memory, double the size of the allocation.*/
       size *= 2;
       printf("%d", size);
-      lines = (char**)realloc(lines, size * sizeof(char *));     
+      char** test = (char**)realloc(lines, size * sizeof(char *));     
       //      assert(lines);
+      if (!test) {
+	  perror("realloc");
+	  return lines;
+      }
+      lines = test;
     }
 
     char *key = line;
@@ -112,7 +117,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   //  assert(lines);
   
   if (!uniq) qsort(lines, n_line, sizeof(char *), cmp);
-  /*
+
   char **newLines = malloc(n_line * sizeof(char *));
   int count = 0;
   if (uniq && cmp == cmp_pstr_len) {
@@ -165,7 +170,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   }
 
   free(lines);
-  free(newLines);*/
+  free(newLines);
 }
 
 int main(int argc, char *argv[]) {
