@@ -133,7 +133,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
       newLines[i] = lines[i];
   }
   if (reverse) {
-    while (count--) {
+    while (n_line--) {
       if (newLines[n_line] != NULL)
       	printf("reverse %s", newLines[n_line]);
     }
