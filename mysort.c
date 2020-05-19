@@ -107,15 +107,15 @@ char **getLines(FILE *fp, size_t *n_line) {
 /*
  */
 
-void sortHelper(char** lines, size_t n_line, bool uniq, cmp_fn_t cmp, bool reverse) {
-  char **newLines = malloc(n_line * sizeof(char *));
+void sortHelper(char** lines, size_t * n_line, bool uniq, cmp_fn_t cmp, bool reverse) {
+  char **newLines = malloc(*n_line * sizeof(char *));
   if (uniq && cmp == cmp_pstr_len) {
     int count = 0;
     int len = strlen(lines[0]);
     char* str = lines[0];
     count = 0;
-    for (int i = 0; i < n_line; i++) {
-      if (i == n_line - 1)
+    for (int i = 0; i < *n_line; i++) {
+      if (i == *n_line - 1)
 	newLines[count] = lines[i];
       if (strlen(lines[i]) == len) {
 	str = lines[i];
@@ -129,8 +129,8 @@ void sortHelper(char** lines, size_t n_line, bool uniq, cmp_fn_t cmp, bool rever
     int len = atoi(lines[0]);
     int count = 0;
     char* str = lines[0];
-    for (int i = 0; i < n_line; i++) {
-      if (i == n_line - 1)
+    for (int i = 0; i < *n_line; i++) {
+      if (i == *n_line - 1)
 	newLines[count] = lines[i];
       if (atoi(lines[i]) == len) {
 	str = lines[i];
@@ -141,16 +141,16 @@ void sortHelper(char** lines, size_t n_line, bool uniq, cmp_fn_t cmp, bool rever
       }
     }
   } else {
-    for(int i = 0; i < n_line; i++) newLines[i] = lines[i];
+    for(int i = 0; i < *n_line; i++) newLines[i] = lines[i];
   }
   if (reverse) {
-    while (n_line--) {
-      if (newLines[n_line] != NULL)
-	printf("%s",newLines[n_line]);
+    while (*n_line--) {
+      if (newLines[*n_line] != NULL)
+	printf("%s",newLines[*n_line]);
     }
     return;
   }
-  for (int i = 0; i < n_line; i++) {
+  for (int i = 0; i < *n_line; i++) {
     if (newLines[i] != NULL)
       printf("%s", newLines[i]);
     free(newLines[i]);
@@ -215,7 +215,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   }
 
   free(lines); */
-  sortHelper(lines, n_line, uniq, cmp, reverse);
+  sortHelper(lines, &n_line, uniq, cmp, reverse);
 }
 
 int main(int argc, char *argv[]) {
