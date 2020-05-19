@@ -65,24 +65,25 @@ void ls(const char *dirpath, int filter, int order) {
     // TODO: implement this function
 
   struct dirent **names;
-  
+  // compare() and filters() -- two functions that we use for scandir.   
   int (*compare)(const struct dirent**, const struct dirent**) = (order == SORT_BY_TYPE ? &sortByType : &sortByName);
   
   int (*filters)(const struct dirent*) = (filter == EXCLUDE_DOT ? NULL : &includeDot);
 
   int count = scandir(dirpath, &names, filters, compare);
-  if (count == -1) {
+  
+  if (count == -1) {                  // if we cannot access the directory name
     fprintf(stderr, "./myls: cannot access %s", dirpath);
-    exit(0);
-  }
-  while(count-- >0) {
+    exit(0);                  // exit with status 0.
+  }     
+  while(count-- >0)                       {  
     char* name = names[count]->d_name;
     if(filter == 0  && *name == '.') continue;
     printf("%s", names[count]->d_name);
-    printf(is_dir(names[count]) ? "/\n" : "\n");
-    //    free(names[count]);
+    printf(is_dir(names[count]) ? "/\n" : "\n");    // directory names have \ at the end.
+    free(names[count]);
   }
-  //  free(names);
+  free(names);
 }
 
 
