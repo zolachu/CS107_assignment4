@@ -32,7 +32,7 @@ void *binsert(const void *key, void *base, size_t *p_nelem, size_t width,
   }
 
     ++(*p_nelem);
-    printf("%lu", *p_nelem);
+    //    printf("%lu", *p_nelem);
 
   size_t index = ((char*)base1 - (char*)base)/width;
 
