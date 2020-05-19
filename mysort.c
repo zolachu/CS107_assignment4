@@ -74,7 +74,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   // TODO: implement this function
   size_t n_line = 0;
   char **lines = getLines(fp, &n_line, cmp, uniq);
-  qsort(lines, n_line, sizeof(char *), cmp);
+  /*  qsort(lines, n_line, sizeof(char *), cmp);
   if (reverse) {
     while (n_line--) {
       printf("%s", lines[n_line]);
@@ -88,6 +88,8 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
 
   }
   //  free(lines);
+  */
+  
 }
 
 int main(int argc, char *argv[]) {
