@@ -93,8 +93,20 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   size_t n_line = 0;
   char **lines = getLines(fp, &n_line, cmp, uniq);
   assert(lines);
-  // qsort(lines, n_line, sizeof(char *), cmp_pstr);
-     qsort(lines, n_line, sizeof(char *), cmp);
+  qsort(lines, n_line, sizeof(char *), cmp);
+  if (uniq && cmp == cmp_pstr_len) {
+    //    char **uniqLines = malloc(sizeof( * sizeof(char *));
+    int len = strlen(lines[0]);
+    char *str = lines[0];
+    for (int i = 0; i < n_line; i++) {
+      if (strlen(lines[i]) == len) {
+        str = lines[i];
+      } else {
+	len = strlen(lines[i]);
+	printf("%s", str);
+      }
+    }
+  }
   if (reverse) {
     /* printt the lines in the reverse order */
     while (n_line--) {
