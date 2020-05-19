@@ -18,10 +18,12 @@ typedef int (*cmp_fn_t)(const void *p, const void *q);
  */
 int cmp_pstr(const void *p, const void *q) {
   // TODO: implement this function (and remove the line below)
-  const char *pstr = *(const char **) p;
-  const char *qstr = *(const char **) q;
-
-  return strcmp(pstr, qstr);
+  //const char *pstr = *(const char **) p;
+  //const char *qstr = *(const char **) q;
+  const char **ip = (const char **)p;
+  const char **iq = (const char **)q;
+  return strcmp(*ip, *iq);
+  // return strcmp(pstr, qstr);
 }
 
 
@@ -69,7 +71,7 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
 
     if (*n_line >= size) {   /* if there isn't enough memory, double the size of the allocation.*/
       size *= 2;
-      //      lines = realloc(lines, size * sizeof(char *));
+      lines = realloc(lines, size * sizeof(char *));
       assert(lines);
     }
     
