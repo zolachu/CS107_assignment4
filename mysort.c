@@ -72,8 +72,8 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
     }
 
     char *key = line;
-    char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
-    if (key == *new) *new = strdup(key);
+    //    char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
+    //if (key == *new) *new = strdup(key);
   }
   return lines;
 }
