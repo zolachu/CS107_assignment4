@@ -17,3 +17,4 @@ mysort -u -l -n samples/names
 mysort -l -u samples/names
 mysort -n samples/names
 mysort -l -n samples/names
+mysort -l -n samples/colors
