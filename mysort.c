@@ -36,9 +36,9 @@ int cmp_pstr_len(const void *p, const void *q) {
   size_t len1 = strlen(ip);
   size_t len2 = strlen(iq);
   if (len1 > len2)
-    return -1;
+    return 1;
   if (len2 > len1)
-    return +1;
+    return -1;
   return strcmp(ip, iq);
 }
 
