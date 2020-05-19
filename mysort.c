@@ -58,7 +58,7 @@ int cmp_pstr_numeric(const void *p, const void *q) {
 
 char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
   size_t size = MIN_NLINES;
-  char **lines = (char**)malloc(size * sizeof(char **));
+  char **lines = (char**)malloc(size * sizeof(char *));
   //  assert(lines);
   char line[MAX_LINE_LEN];
  
@@ -68,7 +68,7 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
     if (a == size) {   /* if there isn't enough memory, double the size of the allocation.*/
       size *= 2;
       printf("%lu hi \n", size);
-      lines = (char**)realloc(lines, size * sizeof(char **));     
+      *lines = (char*)realloc(lines, 300 * sizeof(char *));     
      
     }
 
