@@ -56,15 +56,16 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
       size *= 2;
       lines = realloc(lines, size * sizeof(char *));
     }
-
+    
     if (!uniq) {
       lines[*n_line] = strdup(line);
       (*n_line)++;
     } else {
       char *key = line;
-      char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
-      if (key == *new) *new = strdup(key);
-    }
+      char **new = (char *)binsert(&key, lines, n_line, sizeof(char *), cmp);
+      if(*new == NULL) printf("fuck");
+           if (key == *new) *new = strdup(key);
+      }
   }
   return lines;
 
