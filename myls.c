@@ -61,6 +61,13 @@ int includeDot(const struct dirent *d) {
   return (is_dir(d)) ? 1 : 0;
 }
 
+
+/*
+ * Function: ls()
+ *----------------
+ * returns void.
+ * given directory path, prints out all the direntries in it
+ */
 void ls(const char *dirpath, int filter, int order) {
     // TODO: implement this function
 
