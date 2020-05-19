@@ -10,3 +10,4 @@ myls -z /afs/ir/class/cs107/samples
 mysort -l samples/names
 mysort -r samples/names
 mysort -u samples/names
+mysort -u -l samples/names
