@@ -63,9 +63,9 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
   char line[MAX_LINE_LEN];
  
   while (fgets(line, MAX_LINE_LEN, fp) != NULL) {
-    printf("%lu is supposed to be 100 \n", size);
-    printf("%lu is supposed to be 100 \n", sizeof(lines)/sizeof(*lines));
-    if (*n_line == size) {   /* if there isn't enough memory, double the size of the allocation.*/
+    printf("%lu is supposed to be greater than %lu \n", size, *n_line);
+    int a = *n_line;
+    if (a == size) {   /* if there isn't enough memory, double the size of the allocation.*/
       size *= 2;
       printf("%lu hi \n", size);
       lines = (char**)realloc(lines, size * sizeof(char **));     
@@ -73,8 +73,8 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
     }
 
     char *key = line;
-    //    char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
-    //if (key == *new) *new = strdup(key);
+    char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
+    if (key == *new) *new = strdup(key);
   }
   return lines;
 }
