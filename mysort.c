@@ -59,11 +59,10 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
     size *= 2;
     //printf("%d", size);
     lines = realloc(lines, size * sizeof(char *));
-    //    assert(lines != NULL);
-    }
+    assert(lines);
+  }
     
     if (!uniq) {
-      //printf("%d", size);
       lines[*n_line] = strdup(line);
       (*n_line)++;
     } else {
@@ -71,8 +70,6 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
       printf("%s", key);
       //      assert(lines);
       char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
-      //printf("%s", lines[2]);
-      //      printf("%lu", *n_line);
       *new = strdup(key);
       }
   }
@@ -84,8 +81,8 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   // TODO: implement this function
   size_t n_line = 0;
   char **lines = getLines(fp, &n_line, cmp, uniq);
-  //  printf("%s", *lines);
   assert(lines);
+  qsort(lines, n_line, sizeof(char *), cmp_pstr_len);
   //  qsort(lines, n_line, sizeof(char *), cmp);
   if (reverse) {
     while (n_line--) {
