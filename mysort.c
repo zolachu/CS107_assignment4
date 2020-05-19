@@ -61,12 +61,12 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
   char **lines = (char**)malloc(size * sizeof(char **));
   //  assert(lines);
   char line[MAX_LINE_LEN];
-
+  
   while (fgets(line, MAX_LINE_LEN, fp) != NULL) {
-    
+    printf("%lu", size);
     if (*n_line == size) {   /* if there isn't enough memory, double the size of the allocation.*/
       size *= 2;
-      //      printf("%d", size);
+      printf("%lu", size);
       char** test = (char**)realloc(lines, size * sizeof(char **));     
       //      assert(lines);
       if (!test) {
