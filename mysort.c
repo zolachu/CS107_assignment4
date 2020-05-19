@@ -97,8 +97,10 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   char *str = lines[0];
   int count = 0;
   if (uniq && cmp == cmp_pstr_len) {
+    
     for (int i = 0; i < n_line; i++) {
-      if (i == n_line - 1) printf("%s", lines[i]);
+      if (i == n_line - 1)
+	newLines[count] = lines[i];
       if (strlen(lines[i]) == len) {
 	str = lines[i];
       } else {
@@ -107,7 +109,21 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
 	count++;
       }
     }
-    //    return;
+  } else if (uniq && cmp == cmp_pstr_numeric){
+    len = atoi(lines[0]);
+    count = 0;
+    str = lines[0];
+    for (int i = 0; i < n_line; i++) {
+      if (i == n_line - 1)
+	newLines[count] = lines[i];
+      if (atoi(lines[i]) == len) {
+	str = lines[i];
+      } else {
+	len = atoi(lines[i]);
+	newLines[count] = str;
+	count++;
+      }
+    }
   } else {
     for(int i = 0; i < n_line; i++)
       newLines[i] = lines[i];
