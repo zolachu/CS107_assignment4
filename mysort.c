@@ -64,9 +64,8 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
   char line[MAX_LINE_LEN];
  
   while (fgets(line, MAX_LINE_LEN, fp) != NULL) {
-    printf("%lu is supposed to be greater than %lu \n", sizes, *n_line);
-    int a = *n_line;
-    if (a == sizes - 1) {   /* if there isn't enough memory, double the size of the allocation.*/
+    
+    if (*n_line == sizes - 1) {   /* if there isn't enough memory, double the size of the allocation.*/
       sizes *= 2;
       printf("%lu hi \n", sizes);
       lines = realloc(lines, sizes * sizeof(char *));     
