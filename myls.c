@@ -10,6 +10,8 @@
 enum { SORT_BY_NAME, SORT_BY_TYPE };
 enum { EXCLUDE_DOT, INCLUDE_DOT };
 
+typedef int (*fil)(const struct dirent**, const struct dirent**);
+
 /* On the myth filesystem, the only file type information that is accurate is
  * directory/not-directory used here. Other type info in struct dirent is 
  * not reliable.

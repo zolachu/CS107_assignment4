@@ -14,6 +14,8 @@
 
 typedef int (*cmp_fn_t)(const void *p, const void *q);
 
+/*
+ */
 int cmp_pstr(const void *p, const void *q) {
   // TODO: implement this function (and remove the line below)
   const char *pstr = *(const char **) p;
@@ -21,6 +23,12 @@ int cmp_pstr(const void *p, const void *q) {
 
   return strcmp(pstr, qstr);
 }
+
+
+/*                                                                                                                                                                                      
+ *                                                                                                                                                                                     
+ *                                                                                                                                                                                     
+ */
 
 int cmp_pstr_len(const void *p, const void *q) {
   // TODO: implement this function (and remove the line below)
@@ -32,6 +40,10 @@ int cmp_pstr_len(const void *p, const void *q) {
   if (len_p == len_q) return cmp_pstr(pstr, qstr);
   return (len_p > len_q) - (len_p < len_q);
 }
+
+/*
+ *
+ */
 
 int cmp_pstr_numeric(const void *p, const void *q) {
   // TODO: implement this function (and remove the line below)
@@ -66,7 +78,7 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
       (*n_line)++;
     } else {
       char *key = line;
-      //      printf("%s", key);
+
       char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
       *new = strdup(key);
       }
