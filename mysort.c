@@ -113,8 +113,12 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
       newLines[i] = lines[i];
   }
   if (reverse) {
-    for (int i = 0; i < n_line; i++)
-      newLines[i] = lines[n_line - i];
+    //    for (int i = 0; i < n_line; i++)
+    // newLines[i] = lines[n_line - i];
+    while (n_line--) {
+      printf("%s", newLines[n_line]);
+      free(newLines[n_line]);
+    }
   }
   for (int i = 0; i < n_line; i++) {
     printf("%s", newLines[i]);
