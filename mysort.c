@@ -68,6 +68,10 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
       size *= 2;
       printf("%d", size);
       lines = (char**)realloc(lines, size * sizeof(char *));
+      if (lines == NULL) {
+	printf("memory");
+	return;
+      }
       //      assert(lines);
     }
 
