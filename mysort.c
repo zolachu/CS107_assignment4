@@ -53,8 +53,6 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
   char line[MAX_LINE_LEN];
  
   while (fgets(line, MAX_LINE_LEN, fp) != NULL) {
-  fgets(line, MAX_LINE_LEN, fp) ;
-
 
   if (*n_line >= size) {   /* if there isn't enough memory, double the size of the allocation.*/
 
