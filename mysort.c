@@ -51,24 +51,25 @@ int cmp_pstr_numeric(const void *p, const void *q) {
   return num1 > num2 ? 1 : -1;
 }
 
+
 /*                                                                                                                                                                                      
  *                                                                                                                                                                                      
  *                                                                                                                                                                                    
  */
 
 char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
-  size_t size = MIN_NLINES;
-  char **lines = (char**)malloc(size * sizeof(char *));
+  size_t sizes = MIN_NLINES;
+  char **lines = (char**)malloc(sizes * sizeof(char *));
   //  assert(lines);
   char line[MAX_LINE_LEN];
  
   while (fgets(line, MAX_LINE_LEN, fp) != NULL) {
-    printf("%lu is supposed to be greater than %lu \n", size, *n_line);
+    printf("%lu is supposed to be greater than %lu \n", sizes, *n_line);
     int a = *n_line;
-    if (a == size) {   /* if there isn't enough memory, double the size of the allocation.*/
-      size *= 2;
-      printf("%lu hi \n", size);
-      *lines = (char*)realloc(lines, 300 * sizeof(char *));     
+    if (a == sizes) {   /* if there isn't enough memory, double the size of the allocation.*/
+      sizes *= 2;
+      printf("%lu hi \n", sizes);
+      *lines = (char*)realloc(lines, sizes * sizeof(char *));     
      
     }
 
