@@ -58,7 +58,7 @@ int cmp_pstr_numeric(const void *p, const void *q) {
 
 char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
   size_t size = MIN_NLINES;
-  char **lines = (char**)malloc(10 * size * sizeof(char **));
+  char **lines = (char**)malloc(100 * size * sizeof(char **));
   //  assert(lines);
   char line[MAX_LINE_LEN];
   
