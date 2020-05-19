@@ -75,7 +75,7 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
     
     if (!uniq) {
       lines[*n_line] = strdup(line);
-      (*n_line)++;
+      ++(*n_line);
     } else {
       char *key = line;
 
