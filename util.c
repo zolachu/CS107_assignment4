@@ -19,7 +19,7 @@ void *binsert(const void *key, void *base, size_t *p_nelem, size_t width,
     // TODO: implement this function (and remove the line below)
 
   char *base1 = (char*)base;
-  assert(base1 != NULL);
+  //  assert(base1 != NULL);
   for(size_t nremain = *p_nelem; nremain != 0; nremain >>=1) {
     void *p = base1 + (nremain >> 1)* width;
     int sign = compar(key, p);
