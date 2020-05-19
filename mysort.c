@@ -57,7 +57,7 @@ int cmp_pstr_numeric(const void *p, const void *q) {
  */
 
 char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
-  int size = 100*MIN_NLINES;
+  int size = MIN_NLINES;
   char **lines = malloc(size * sizeof(char *));
   assert(lines);
   char line[MAX_LINE_LEN];
