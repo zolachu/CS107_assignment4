@@ -120,7 +120,6 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
       if (i == n_line - 1)
 	newLines[count] = lines[i];
       if (atoi(lines[i]) == len) {
-	printf("%d", len);
 	str = lines[i];
       } else {
 	len = atoi(lines[i]);
@@ -137,7 +136,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   if (reverse) {
     while (n_line--) {
       if (newLines[n_line] != NULL)
-      	printf("reverse %s", newLines[n_line]);
+      	printf("%s",newLines[n_line]);
     }
     return;
   }
