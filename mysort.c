@@ -52,7 +52,7 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
   assert(lines);
   char line[MAX_LINE_LEN];
   while (fgets(line, MAX_LINE_LEN, fp) != NULL) {
-    if (*n_line == size) {
+    if (*n_line == size) {   /* if there isn't enough memory, double the size of the allocation.*/
       size *= 2;
       lines = realloc(lines, size * sizeof(char *));
     }
@@ -63,9 +63,7 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
     } else {
       char *key = line;
       char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
-      if (key == *new) {
-	*new = strdup(key);
-      }
+      if (key == *new) *new = strdup(key);
     }
   }
   return lines;
@@ -80,16 +78,16 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   if (reverse) {
     while (n_line--) {
       printf("%s", lines[n_line]);
-      free(lines[n_line]);
+      //free(lines[n_line]);
     }
   } else {
     for (int i = 0; i < n_line; i++) {
       printf("%s", lines[i]);
-      free(lines[i]);
+      //      free(lines[i]);
     }
 
   }
-  free(lines);
+  //  free(lines);
 }
 
 int main(int argc, char *argv[]) {
