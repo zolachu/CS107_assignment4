@@ -93,7 +93,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
     qsort(lines, n_line, sizeof(char *), cmp);
   }  //TODO: Change this to make unique call to binsert!!!
 
-  char **newLines = malloc(n_line * sizeof(char *));
+  /*  char **newLines = malloc(n_line * sizeof(char *));
 
   int count = 0;
   if (uniq && cmp == cmp_pstr_len) {
@@ -146,6 +146,20 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   }
 
   free(lines); 
+  */
+  if (reverse) {
+    while (n_line--) {
+      printf("%s", lines[n_line]);
+      free(lines[n_line]);
+    }
+  } else {
+    for (int i = 0; i < n_line; i++) {
+      printf("%s", lines[i]);
+      free(lines[i]);
+    }
+
+  }
+  free(lines);
 }
 
 int main(int argc, char *argv[]) {
