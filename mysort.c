@@ -18,8 +18,6 @@ typedef int (*cmp_fn_t)(const void *p, const void *q);
  */
 int cmp_pstr(const void *p, const void *q) {
   // TODO: implement this function (and remove the line below)
-  //const char *pstr = *(const char **) p;
-  //const char *qstr = *(const char **) q;
   const char **ip = (const char **)p;
   const char **iq = (const char **)q;
   return strcmp(*ip, *iq);
@@ -34,12 +32,12 @@ int cmp_pstr(const void *p, const void *q) {
 
 int cmp_pstr_len(const void *p, const void *q) {
   // TODO: implement this function (and remove the line below)
-  const char *pstr = *(const char **) q;
-  const char *qstr = *(const char **) q;
-  int len_p = strlen(pstr);
-  int len_q = strlen(qstr);
+  const char **pstr = (const char **) q;
+  const char **qstr = (const char **) q;
+  int len_p = strlen(*pstr);
+  int len_q = strlen(*qstr);
 
-  if (len_p == len_q) return cmp_pstr(pstr, qstr);
+  if (len_p == len_q) return cmp_pstr(*pstr, *qstr);
   return (len_p > len_q) - (len_p < len_q);
 }
 
