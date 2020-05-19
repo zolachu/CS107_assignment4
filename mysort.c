@@ -51,14 +51,41 @@ int cmp_pstr_numeric(const void *p, const void *q) {
   return num1 > num2 ? 1 : -1;
 }
 
+/*                                                                                                                                                                                      
+ *                                                                                                                                                                                      
+ *                                                                                                                                                                                    
+ */
+
+char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
+  int size = MIN_NLINES;
+  char **lines = malloc(4*size * sizeof(char *));
+  assert(lines);
+  char line[MAX_LINE_LEN];
+
+  while (fgets(line, MAX_LINE_LEN, fp) != NULL) {
+
+    if (*n_line == size) {   /* if there isn't enough memory, double the size of the allocation.*/
+      size *= 2;
+      lines = realloc(lines, size * sizeof(char *));
+      assert(lines);
+    }
+
+    char *key = line;
+    char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
+    *new = strdup(key);
+  }
+  return lines;
+}
+
+
 /*
  *
  *
  */
 
-char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
+char **getLines(FILE *fp, size_t *n_line) {
   int size = MIN_NLINES;
-  char **lines = malloc(size * sizeof(char *));
+  char **lines = malloc(4*size * sizeof(char *));
   assert(lines);
   char line[MAX_LINE_LEN];
  
@@ -67,30 +94,26 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
     if (*n_line == size) {   /* if there isn't enough memory, double the size of the allocation.*/
       size *= 2;
       lines = realloc(lines, size * sizeof(char *));
-      //      assert(lines);
+      assert(lines);
     }
-    
-    if (!uniq) {
-      lines[*n_line] = strdup(line);
-      ++(*n_line);
-    } else {
-      char *key = line;
 
-      char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
-      *new = strdup(key);
-      }
+    lines[*n_line] = strdup(line);
+    ++(*n_line); 
   }
   return lines;
 
 }
 
+
+
 void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   // TODO: implement this function
   size_t n_line = 0;
-  char **lines = getLines(fp, &n_line, cmp, uniq); // This makes repeated calls to binsert ONLY if uniq == TRUE.
+  char **lines = uniq ? getUniqueLines(fp, &n_line, cmp) : getLines(fp, &n_line); // This makes repeated calls to binsert ONLY if uniq == TRUE.
   assert(lines);
-  if (!uniq) qsort(lines, n_line, sizeof(char *), cmp);
-
+  if (!uniq) {
+    qsort(lines, n_line, sizeof(char *), cmp);
+  } 
   char **newLines = malloc(n_line * sizeof(char *));
 
   int count = 0;
