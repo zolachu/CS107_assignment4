@@ -63,8 +63,8 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
   char line[MAX_LINE_LEN];
 
   while (fgets(line, MAX_LINE_LEN, fp) != NULL) {
-
-    while (*n_line >= size) {   /* if there isn't enough memory, double the size of the allocation.*/
+    
+    while ((int)*n_line >= size) {   /* if there isn't enough memory, double the size of the allocation.*/
       size *= 2;
       printf("%d", size);
       lines = (char**)realloc(lines, size * sizeof(char *));     
@@ -112,7 +112,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   //  assert(lines);
   
   if (!uniq) qsort(lines, n_line, sizeof(char *), cmp);
-
+  /*
   char **newLines = malloc(n_line * sizeof(char *));
   int count = 0;
   if (uniq && cmp == cmp_pstr_len) {
@@ -161,9 +161,11 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
     if (newLines[i] != NULL)
       printf("%s", newLines[i]);
     free(newLines[i]);
+    free(lines[i]);
   }
 
-  //  free(lines);
+  free(lines);
+  free(newLines);*/
 }
 
 int main(int argc, char *argv[]) {
