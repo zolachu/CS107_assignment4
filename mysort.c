@@ -72,6 +72,8 @@ char **getUniqueLines(FILE *fp, size_t *n_line, cmp_fn_t cmp) {
       if (!test) {
 	  perror("realloc");
 	  return NULL;
+      } else {
+	printf("wow  \n");
       }
       lines = test;
     }
