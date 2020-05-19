@@ -21,7 +21,6 @@ int cmp_pstr(const void *p, const void *q) {
   const char **ip = (const char **)p;
   const char **iq = (const char **)q;
   return strcmp(*ip, *iq);
-  // return strcmp(pstr, qstr);
 }
 
 
