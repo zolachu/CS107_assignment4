@@ -31,14 +31,15 @@ int cmp_pstr(const void *p, const void *q) {
 
 int cmp_pstr_len(const void *p, const void *q) {
   // TODO: implement this function (and remove the line below)
-  const char **pstr = (const char **) q;
-  const char **qstr = (const char **) q;
-  int len_p = strlen(*pstr);
-  int len_q = strlen(*qstr);
-  //  printf("%d", len_p);
-  if (len_p == len_q) return strcmp(*pstr, *qstr);
-  //return (len_p > len_q) - (len_p <= len_q);
-  return len_p > len_q ? -1 : +1;
+  const char *ip = *(const char * const *)p;
+  const char *iq = *(const char * const *)q;
+  size_t len1 = strlen(ip);
+  size_t len2 = strlen(iq);
+  if (len1 > len2)
+    return -1;
+  if (len2 > len1)
+    return +1;
+  return strcmp(ip, iq);
 }
 
 /*
