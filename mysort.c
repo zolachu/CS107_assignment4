@@ -37,8 +37,8 @@ int cmp_pstr_len(const void *p, const void *q) {
   int len_q = strlen(*qstr);
 
   if (len_p == len_q) return strcmp(*pstr, *qstr);
-  //  return (len_p > len_q) - (len_p < len_q);
-  return len_p > len_q ? 1 : -1;
+    return (len_p > len_q) - (len_p < len_q);
+    // return len_p > len_q ? 1 : -1;
 }
 
 /*
