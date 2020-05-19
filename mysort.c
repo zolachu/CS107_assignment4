@@ -29,7 +29,7 @@ int cmp_pstr_len(const void *p, const void *q) {
   int len_p = strlen(pstr);
   int len_q = strlen(qstr);
 
-  return len_p == len_q ? cmp_pstr(pstr, qstr) : ((len_p > len_q) - (len_p < len_q));
+  return (len_p == len_q) ? cmp_pstr(pstr, qstr) : ((len_p > len_q) - (len_p < len_q));
 }
 
 int cmp_pstr_numeric(const void *p, const void *q) {
@@ -51,10 +51,17 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
   char **lines = malloc(size * sizeof(char *));
   assert(lines);
   char line[MAX_LINE_LEN];
+ 
   while (fgets(line, MAX_LINE_LEN, fp) != NULL) {
-    if (*n_line == size) {   /* if there isn't enough memory, double the size of the allocation.*/
-      size *= 2;
-      lines = realloc(lines, size * sizeof(char *));
+  //  for (int i = 0; i < 2; i++){
+  fgets(line, MAX_LINE_LEN, fp) ;
+  printf("%lu", *n_line);
+  printf("%d", size);
+  if (*n_line >= size) {   /* if there isn't enough memory, double the size of the allocation.*/
+
+    size *= 2;
+    //      lines = realloc(lines, size * sizeof(char *));
+      assert(lines != NULL);
     }
     
     if (!uniq) {
@@ -62,9 +69,9 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
       (*n_line)++;
     } else {
       char *key = line;
-      char **new = (char *)binsert(&key, lines, n_line, sizeof(char *), cmp);
-      if(*new == NULL) printf("fuck");
-      //           if (key == *new) *new = strdup(key);
+      assert(lines);
+      char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
+      *new = strdup(key);
       }
   }
   return lines;
@@ -75,7 +82,8 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
   // TODO: implement this function
   size_t n_line = 0;
   char **lines = getLines(fp, &n_line, cmp, uniq);
-  /*  qsort(lines, n_line, sizeof(char *), cmp);
+  //  printf("%s", *lines);
+  qsort(lines, n_line, sizeof(char *), cmp);
   if (reverse) {
     while (n_line--) {
       printf("%s", lines[n_line]);
@@ -83,14 +91,12 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
     }
   } else {
     for (int i = 0; i < n_line; i++) {
-      printf("%s", lines[i]);
-      //      free(lines[i]);
+       printf("%s", lines[i]);
+       //       free(lines[i]);
     }
 
   }
-  //  free(lines);
-  */
-  
+  //  free(lines); 
 }
 
 int main(int argc, char *argv[]) {

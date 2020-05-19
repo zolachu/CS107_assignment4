@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (is_string) {
-        test_string(argc - optind, argv + optind);
+      test_string(argc - optind, argv + optind);
     } else if (is_int) {
         test_int(argc - optind, argv + optind);
     }

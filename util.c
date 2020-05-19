@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
+#include <assert.h>
 /*
  * Function: binsert
  *-----------------
@@ -19,11 +19,11 @@ void *binsert(const void *key, void *base, size_t *p_nelem, size_t width,
     // TODO: implement this function (and remove the line below)
 
   char *base1 = (char*)base;
-
+  assert(base1 != NULL);
   for(size_t nremain = *p_nelem; nremain != 0; nremain >>=1) {
     void *p = base1 + (nremain >> 1)* width;
     int sign = compar(key, p);
-
+    
     if (sign  == 0) return p; /* if the key is found */
     if (sign > 0) {  /* key > p: move right */
       base1 = (char *)p + width;
@@ -31,11 +31,13 @@ void *binsert(const void *key, void *base, size_t *p_nelem, size_t width,
     }/* else move left */
   }
 
-  ++(*p_nelem);
+    ++(*p_nelem);
+    printf("%lu", *p_nelem);
 
   size_t index = ((char*)base1 - (char*)base)/width;
 
-  memmove((char*)base + (index + 1)* width, (char*)base + index* width, (*p_nelem - index + 1)* width);
-
-  return  memcpy((char *)base + index * width, key, width);
+  memmove((char*)base + (index + 1)*width, (char*)base + index*width, (*p_nelem - index + 1)* width);
+  void* value = memcpy((char *)base + index * width, key, width);
+  //  assert(value != NULL);
+  return value;
 }
