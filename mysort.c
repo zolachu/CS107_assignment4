@@ -60,7 +60,7 @@ int cmp_pstr_numeric(const void *p, const void *q) {
  */
 
 char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
-  int size = MIN_NLINES;
+  int size = 100*MIN_NLINES;
   char **lines = malloc(size * sizeof(char *));
   assert(lines);
   char line[MAX_LINE_LEN];
@@ -70,7 +70,7 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
     if (*n_line == size) {   /* if there isn't enough memory, double the size of the allocation.*/
       size *= 2;
       lines = realloc(lines, size * sizeof(char *));
-      assert(lines);
+      //      assert(lines);
     }
     
     if (!uniq) {
