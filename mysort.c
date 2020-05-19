@@ -126,6 +126,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
 	count++;
       }
     }
+    printf("%d", count);
   } else {
     count = n_line;
     for(int i = 0; i < n_line; i++)
