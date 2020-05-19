@@ -60,8 +60,8 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
   if (*n_line >= size) {   /* if there isn't enough memory, double the size of the allocation.*/
 
     size *= 2;
-    //      lines = realloc(lines, size * sizeof(char *));
-      assert(lines != NULL);
+    lines = realloc(lines, size * sizeof(char *));
+    // assert(lines != NULL);
     }
     
     if (!uniq) {
@@ -69,7 +69,7 @@ char **getLines(FILE *fp, size_t *n_line, cmp_fn_t cmp, bool uniq) {
       (*n_line)++;
     } else {
       char *key = line;
-      assert(lines);
+      //      assert(lines);
       char **new = binsert(&key, lines, n_line, sizeof(char *), cmp);
       *new = strdup(key);
       }
