@@ -111,7 +111,7 @@ void sort_lines(FILE *fp, cmp_fn_t cmp, bool uniq, bool reverse) {
 	//	printf("%s", str);
       }
     }
-    return;
+    //    return;
   } else {
     for(int i = 0; i < n_line; i++)
       newLines[i] = lines[i];
